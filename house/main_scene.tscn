@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cmwmij0aersc7"]
+
+[ext_resource type="PackedScene" uid="uid://nmc736uql7wy" path="res://text_adventure/game_viewport.tscn" id="1_cj8rs"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_g56pd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b3lgo"]
+
+[node name="MainScene" type="Node3D" unique_id=245068481]
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1820150366]
+
+[node name="Game" parent="SubViewport" unique_id=501532570 instance=ExtResource("1_cj8rs")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=525511190]
+mesh = SubResource("QuadMesh_g56pd")
+surface_material_override/0 = SubResource("StandardMaterial3D_b3lgo")
