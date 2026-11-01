@@ -26,8 +26,11 @@ sky_material = SubResource("ProceduralSkyMaterial_oi5g0")
 [sub_resource type="Environment" id="Environment_1w42b"]
 background_mode = 2
 sky = SubResource("Sky_i56n2")
+tonemap_mode = 3
 ssao_enabled = true
 glow_enabled = true
+glow_strength = 0.62
+glow_bloom = 0.53
 
 [sub_resource type="Gradient" id="Gradient_wah6k"]
 colors = PackedColorArray(0.8862616, 0.88626146, 0.8862615, 1, 1, 1, 1, 1)
@@ -52,7 +55,7 @@ uv1_scale = Vector3(3, 3, 3)
 size = Vector3(1.8371582, 0.72058105, 1.1815186)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_n51id"]
-viewport_path = NodePath("Room/Table/Tv/Input/SubViewport")
+viewport_path = NodePath("Room/Table/Tv/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y20f4"]
 resource_local_to_scene = true
@@ -64,7 +67,8 @@ shader_parameter/scale = Vector2(1, 1)
 shader_parameter/albedo = SubResource("ViewportTexture_n51id")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/resolution = 128.0
-shader_parameter/static_strength = 0.06
+shader_parameter/static_strength = 0.01
+shader_parameter/emission_strength = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bb217"]
 albedo_texture = ExtResource("6_4yaum")
@@ -113,23 +117,21 @@ mesh = SubResource("BoxMesh_cc37w")
 [node name="vase" parent="Room/Table" unique_id=459541255 instance=ExtResource("7_jt3gk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.66380954, 0.34667313, 0.22463799)
 
-[node name="Tv" type="MeshInstance3D" parent="Room/Table" unique_id=765171069]
+[node name="Tv" type="MeshInstance3D" parent="Room/Table" unique_id=765171069 node_paths=PackedStringArray("screenViewport", "effectsAudio")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.006745875, 0.33567613, -0.02260995)
 mesh = ExtResource("1_wx55q")
 surface_material_override/1 = SubResource("ShaderMaterial_y20f4")
-
-[node name="Input" type="Node3D" parent="Room/Table/Tv" unique_id=1432730334 node_paths=PackedStringArray("screenViewport", "effectsAudio")]
 script = ExtResource("11_sk07s")
 screenViewport = NodePath("SubViewport")
 effectsAudio = NodePath("Effects")
 
-[node name="SubViewport" type="SubViewport" parent="Room/Table/Tv/Input" unique_id=1820150366]
+[node name="SubViewport" type="SubViewport" parent="Room/Table/Tv" unique_id=1820150366]
 size = Vector2i(640, 480)
 render_target_update_mode = 4
 
-[node name="Game" parent="Room/Table/Tv/Input/SubViewport" unique_id=501532570 instance=ExtResource("1_cj8rs")]
+[node name="Game" parent="Room/Table/Tv/SubViewport" unique_id=501532570 instance=ExtResource("1_cj8rs")]
 
-[node name="Effects" type="AudioStreamPlayer3D" parent="Room/Table/Tv/Input" unique_id=1695143778]
+[node name="Effects" type="AudioStreamPlayer3D" parent="Room/Table/Tv" unique_id=1695143778]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0.97522426, 0.47054625)
 stream = ExtResource("13_4qagx")
 unit_size = 2.0
@@ -141,5 +143,11 @@ material_override = SubResource("StandardMaterial3D_bb217")
 mesh = SubResource("BoxMesh_8p87e")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1510328602]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6198392, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8066096, 2.6198392, -1.3428903)
+light_energy = 0.203
+omni_range = 5.371456
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=6496496]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9270897, 2.6198392, -0.33458638)
+light_energy = 0.142
 omni_range = 5.371456

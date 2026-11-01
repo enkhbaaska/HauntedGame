@@ -8,6 +8,7 @@ uniform sampler2D albedo;
 uniform vec4 color : source_color;
 uniform float resolution = 128;
 uniform float static_strength = 0.1;
+uniform float emission_strength = 0.5;
 float rand(vec2 co) {
     return fract(sin(TIME + dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
 }
@@ -16,4 +17,5 @@ void fragment() {
 	float noise = rand(floor(UV * resolution) / resolution);
 	vec4 texas = texture(albedo, uv);
 	ALBEDO = texas.rgb * color.rgb + noise * static_strength;
+	EMISSION = texas.rgb * color.rgb * emission_strength;
 }
