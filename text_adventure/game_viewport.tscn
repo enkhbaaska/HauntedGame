@@ -1,28 +1,70 @@
 [gd_scene format=3 uid="uid://nmc736uql7wy"]
 
+[ext_resource type="Script" uid="uid://cgu6i0bhkjne8" path="res://text_adventure/TextInterface.cs" id="1_lebha"]
 [ext_resource type="FontFile" uid="uid://dkk585pwlo1n6" path="res://ui/fonts/VT323-Regular.ttf" id="1_wa5eq"]
+[ext_resource type="AudioStream" uid="uid://8y8k7oei6pcl" path="res://sound/jumpscare.mp3" id="2_af4vv"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ts43w"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc37w"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="Game" type="Control" unique_id=88874352]
-layout_mode = 3
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cc37w"]
+
+[node name="Game" type="ColorRect" unique_id=1983701509 node_paths=PackedStringArray("input", "output")]
+custom_maximum_size = Vector2(640, 480)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_lebha")
+input = NodePath("VBoxContainer/Input")
+output = NodePath("VBoxContainer/Output")
+jumpscare = ExtResource("2_af4vv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1931677060]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextEdit" type="TextEdit" parent="." unique_id=1676105268]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
-theme_override_colors/font_color = Color(0, 1, 0.33333334, 1)
+[node name="Output" type="RichTextLabel" parent="VBoxContainer" unique_id=1045719893]
+custom_minimum_size = Vector2(640, 420)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.7265367, 0.9594658, 0.8245297, 1)
+theme_override_fonts/normal_font = ExtResource("1_wa5eq")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+ ____  ___  ____  __    __   _  _  ____  ____  ____ 
+(  __)/ __)(_  _)/  \\  /  \\ / )( \\(  __)/ ___)(_  _)
+ ) _)( (__   )( (  O )(  O )) \\/ ( ) _) \\___ \\  )(  
+(____)\\___) (__) \\__/  \\__\\)\\____/(____)(____/ (__) 
+                    
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+Type 'start' to begin your quest.
+Screen Width: 56 Characters
+Screen Height: 15 Characters
+
+instant jumpscare warning lol"
+scroll_active = false
+scroll_following = true
+
+[node name="Input" type="LineEdit" parent="VBoxContainer" unique_id=1447516838]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 theme_override_fonts/font = ExtResource("1_wa5eq")
 theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_ts43w")
-text = " > Placeholder Text
- > Be Me, Gamedev
- > Make Spooky Game
- > Very Spooky
- > Get Spooked"
+theme_override_styles/normal = SubResource("StyleBoxFlat_cc37w")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cc37w")
+placeholder_text = "> What will you do next?"
+keep_editing_on_text_submit = true
+emoji_menu_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false

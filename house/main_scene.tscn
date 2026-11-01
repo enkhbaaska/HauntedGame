@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://dp8xxhpshehb4" path="res://house/models/PSX-Derelict-Furniture-Standard/glb/shelf.glb" id="5_fkuxi"]
 [ext_resource type="Texture2D" uid="uid://dliu0m5nn40un" path="res://house/textures/varnishedPlanks.png" id="6_4yaum"]
 [ext_resource type="PackedScene" uid="uid://bp7rkiefakuk4" path="res://house/models/PSX-Derelict-Furniture-Standard/glb/vase.glb" id="7_jt3gk"]
+[ext_resource type="Script" uid="uid://f81c1saoqu55" path="res://ui/TV.cs" id="11_sk07s"]
+[ext_resource type="AudioStream" uid="uid://8y8k7oei6pcl" path="res://sound/jumpscare.mp3" id="13_4qagx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oi5g0"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -50,7 +52,7 @@ uv1_scale = Vector3(3, 3, 3)
 size = Vector3(1.8371582, 0.72058105, 1.1815186)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_n51id"]
-viewport_path = NodePath("Room/Table/Tv/SubViewport")
+viewport_path = NodePath("Room/Table/Tv/Input/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y20f4"]
 resource_local_to_scene = true
@@ -116,9 +118,22 @@ transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.006745875, 0.3356761
 mesh = ExtResource("1_wx55q")
 surface_material_override/1 = SubResource("ShaderMaterial_y20f4")
 
-[node name="SubViewport" type="SubViewport" parent="Room/Table/Tv" unique_id=1820150366]
+[node name="Input" type="Node3D" parent="Room/Table/Tv" unique_id=1432730334 node_paths=PackedStringArray("screenViewport", "effectsAudio")]
+script = ExtResource("11_sk07s")
+screenViewport = NodePath("SubViewport")
+effectsAudio = NodePath("Effects")
 
-[node name="Game" parent="Room/Table/Tv/SubViewport" unique_id=501532570 instance=ExtResource("1_cj8rs")]
+[node name="SubViewport" type="SubViewport" parent="Room/Table/Tv/Input" unique_id=1820150366]
+size = Vector2i(640, 480)
+render_target_update_mode = 4
+
+[node name="Game" parent="Room/Table/Tv/Input/SubViewport" unique_id=501532570 instance=ExtResource("1_cj8rs")]
+
+[node name="Effects" type="AudioStreamPlayer3D" parent="Room/Table/Tv/Input" unique_id=1695143778]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0.97522426, 0.47054625)
+stream = ExtResource("13_4qagx")
+unit_size = 1.0
+pitch_scale = 0.5
 
 [node name="Door" type="MeshInstance3D" parent="Room" unique_id=1848819661]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7368002, 3.833847)
