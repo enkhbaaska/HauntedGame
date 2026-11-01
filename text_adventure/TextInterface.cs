@@ -41,12 +41,18 @@ public partial class TextInterface : Control
 		input.Hide();
 		input.Editable = false;
 		ClearScreen();
-		PrintText("[color=red]"+AsciiArt.scaryFace+"[/color]");
-		output.VisibleRatio = 0;
+		PrintText("[shake]\n\n\n\n\n\n\n[center]FOUND YOU.[/center][/shake]");
 		Tween t = GetTree().CreateTween();
-		TV.PlaySound(jumpscare,0.1f);
+		t.TweenInterval(2);
+		t.TweenCallback(Callable.From(() =>
+		{
+			output.VisibleRatio = 0;
+			TV.PlaySound(jumpscare,0.1f);
+			ClearScreen();
+			PrintText("[color=red]"+AsciiArt.scaryFace+"[/color]");
+		}));
 		t.TweenProperty(output,"visible_ratio",1f,10f);
-		t.TweenInterval(4);
+		t.TweenInterval(5);
 		t.TweenCallback(Callable.From(() =>
 		{
 			output.VisibleCharacters = -1;
