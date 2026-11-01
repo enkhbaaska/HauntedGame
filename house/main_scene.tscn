@@ -1,17 +1,130 @@
 [gd_scene format=3 uid="uid://cmwmij0aersc7"]
 
+[ext_resource type="PackedScene" uid="uid://blfx7lf6gjm0a" path="res://house/models/PSX-Derelict-Furniture-Standard/glb/chair.glb" id="1_28y4w"]
 [ext_resource type="PackedScene" uid="uid://nmc736uql7wy" path="res://text_adventure/game_viewport.tscn" id="1_cj8rs"]
+[ext_resource type="PackedScene" uid="uid://dqmoo4res4u2r" path="res://player/player_camera.tscn" id="1_epcst"]
+[ext_resource type="ArrayMesh" uid="uid://dtu70e4ymriwb" path="res://house/models/tv/tv.obj" id="1_wx55q"]
+[ext_resource type="PackedScene" uid="uid://divfp6wp0sk1h" path="res://house/models/PSX-Derelict-Furniture-Standard/glb/couch.glb" id="2_epcst"]
+[ext_resource type="Shader" uid="uid://bjn718lvmq1uc" path="res://house/models/tv/tv_shader.gdshader" id="2_ts43w"]
+[ext_resource type="PackedScene" uid="uid://bwtc71r27tdl6" path="res://house/models/PSX-Derelict-Furniture-Standard/glb/fridge.glb" id="3_sk07s"]
+[ext_resource type="PackedScene" uid="uid://cmtgj464fjd1f" path="res://house/models/PSX-Derelict-Furniture-Standard/glb/mattress.glb" id="4_4qagx"]
+[ext_resource type="PackedScene" uid="uid://dp8xxhpshehb4" path="res://house/models/PSX-Derelict-Furniture-Standard/glb/shelf.glb" id="5_fkuxi"]
+[ext_resource type="Texture2D" uid="uid://dliu0m5nn40un" path="res://house/textures/varnishedPlanks.png" id="6_4yaum"]
+[ext_resource type="PackedScene" uid="uid://bp7rkiefakuk4" path="res://house/models/PSX-Derelict-Furniture-Standard/glb/vase.glb" id="7_jt3gk"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_g56pd"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oi5g0"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0.043321677, 0.0489022, 0.062442906, 1)
+ground_bottom_color = Color(0.023464259, 0.045786344, 0.09994919, 1)
+ground_horizon_color = Color(0.043321677, 0.0489022, 0.062442906, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b3lgo"]
+[sub_resource type="Sky" id="Sky_i56n2"]
+sky_material = SubResource("ProceduralSkyMaterial_oi5g0")
+
+[sub_resource type="Environment" id="Environment_1w42b"]
+background_mode = 2
+sky = SubResource("Sky_i56n2")
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_wah6k"]
+colors = PackedColorArray(0.8862616, 0.88626146, 0.8862615, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bb217"]
+fractal_lacunarity = 5.68
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8p87e"]
+noise = SubResource("FastNoiseLite_bb217")
+color_ramp = SubResource("Gradient_wah6k")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cc37w"]
+albedo_color = Color(0.74581003, 0.62590164, 0.4485863, 1)
+albedo_texture = SubResource("NoiseTexture2D_8p87e")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8p87e"]
+albedo_texture = ExtResource("6_4yaum")
+uv1_scale = Vector3(3, 3, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cc37w"]
+size = Vector3(1.8371582, 0.72058105, 1.1815186)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_n51id"]
+viewport_path = NodePath("Room/Table/Tv/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y20f4"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_ts43w")
+shader_parameter/oscillation_magnitude = Vector2(0.001, 0)
+shader_parameter/oscillation_frequency = 100.0
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/albedo = SubResource("ViewportTexture_n51id")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/resolution = 128.0
+shader_parameter/static_strength = 0.06
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bb217"]
+albedo_texture = ExtResource("6_4yaum")
+uv1_scale = Vector3(3, 3, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8p87e"]
+size = Vector3(1, 1.7, 0.1)
 
 [node name="MainScene" type="Node3D" unique_id=245068481]
 
-[node name="SubViewport" type="SubViewport" parent="." unique_id=1820150366]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1699147835]
+environment = SubResource("Environment_1w42b")
 
-[node name="Game" parent="SubViewport" unique_id=501532570 instance=ExtResource("1_cj8rs")]
+[node name="CameraController" parent="." unique_id=253677696 instance=ExtResource("1_epcst")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.72531176)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=525511190]
-mesh = SubResource("QuadMesh_g56pd")
-surface_material_override/0 = SubResource("StandardMaterial3D_b3lgo")
+[node name="Room" type="CSGBox3D" parent="." unique_id=380192958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+flip_faces = true
+size = Vector3(7.876465, 3.1445313, 7.6709595)
+material = SubResource("StandardMaterial3D_cc37w")
+
+[node name="chair" parent="Room" unique_id=862091148 instance=ExtResource("1_28y4w")]
+transform = Transform3D(-0.7032656, 0, -0.7109272, 0, 1, 0, 0.7109272, 0, -0.7032656, 1.7937946, -1.6000003, -2.3943255)
+
+[node name="couch" parent="Room" unique_id=373749970 instance=ExtResource("2_epcst")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -1.6, -0.59411454)
+
+[node name="fridge" parent="Room" unique_id=2086246153 instance=ExtResource("3_sk07s")]
+transform = Transform3D(-0.9988114, 0, 0.048741657, 0, 1, 0, -0.048741657, 0, -0.9988114, 3.4042327, -1.5999998, 0.5229373)
+
+[node name="mattress" parent="Room" unique_id=1015945802 instance=ExtResource("4_4qagx")]
+transform = Transform3D(-0.054567564, 0, -0.99851006, 0, 1, 0, 0.99851006, 0, -0.054567564, -3.0198383, -1.6000003, -0.94330597)
+
+[node name="shelf" parent="Room" unique_id=335714426 instance=ExtResource("5_fkuxi")]
+transform = Transform3D(-0.010464456, 0, -0.9999453, 0, 1, 0, 0.9999453, 0, -0.010464456, -1.6526058, -1.6, -2.6924746)
+
+[node name="shelf2" parent="Room" unique_id=945748273 instance=ExtResource("5_fkuxi")]
+transform = Transform3D(-0.010464456, 0, -0.9999453, 0, 1, 0, 0.9999453, 0, -0.010464456, -2.7450604, -1.6, -2.6924746)
+
+[node name="Table" type="MeshInstance3D" parent="Room" unique_id=854769961]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.254, -2.342045)
+material_override = SubResource("StandardMaterial3D_8p87e")
+mesh = SubResource("BoxMesh_cc37w")
+
+[node name="vase" parent="Room/Table" unique_id=459541255 instance=ExtResource("7_jt3gk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.66380954, 0.34667313, 0.22463799)
+
+[node name="Tv" type="MeshInstance3D" parent="Room/Table" unique_id=765171069]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.006745875, 0.33567613, -0.02260995)
+mesh = ExtResource("1_wx55q")
+surface_material_override/1 = SubResource("ShaderMaterial_y20f4")
+
+[node name="SubViewport" type="SubViewport" parent="Room/Table/Tv" unique_id=1820150366]
+
+[node name="Game" parent="Room/Table/Tv/SubViewport" unique_id=501532570 instance=ExtResource("1_cj8rs")]
+
+[node name="Door" type="MeshInstance3D" parent="Room" unique_id=1848819661]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7368002, 3.833847)
+material_override = SubResource("StandardMaterial3D_bb217")
+mesh = SubResource("BoxMesh_8p87e")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1510328602]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6198392, 0)
+omni_range = 5.371456
