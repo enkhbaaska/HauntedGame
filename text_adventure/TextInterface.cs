@@ -8,6 +8,11 @@ public partial class TextInterface : Control
 	[Export] RichTextLabel output;
 	[ExportGroup("Sound Effects")]
 	[Export] AudioStream jumpscare;
+	[ExportGroup("Jumpscare")]
+	[Export] float scaryFaceRevealDuration = 10f;
+	[Export] float jumpscarePitch = 0.2f;
+	[Export] float foundYouInterval = 2f;
+	[Export] float scaryFaceInterval = 5f;
 	public const int ScreenWidth = 56;
 	public const int ScreenHeight = 15;
 	public override void _Ready()
@@ -43,21 +48,21 @@ public partial class TextInterface : Control
 		ClearScreen();
 		PrintText("[shake]\n\n\n\n\n\n\n[center]FOUND YOU.[/center][/shake]");
 		Tween t = GetTree().CreateTween();
-		t.TweenInterval(2);
+		t.TweenInterval(foundYouInterval);
 		t.TweenCallback(Callable.From(() =>
 		{
 			output.VisibleRatio = 0;
-			TV.PlaySound(jumpscare,0.1f);
+			TV.PlaySound(jumpscare,jumpscarePitch);
 			ClearScreen();
 			PrintText("[color=red]"+AsciiArt.scaryFace+"[/color]");
 		}));
-		t.TweenProperty(output,"visible_ratio",1f,10f);
-		t.TweenInterval(5);
+		t.TweenProperty(output,"visible_ratio",1f,scaryFaceRevealDuration);
+		t.TweenInterval(scaryFaceInterval);
 		t.TweenCallback(Callable.From(() =>
 		{
 			output.VisibleCharacters = -1;
 			ClearScreen();
-			output.Text = "todo: more scary stuff";
+			output.Text = "todo: more scary stuff / switch to static";
 			//Handle game over (jumpscare irl?)
 		}));
 	}
