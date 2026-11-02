@@ -1,8 +1,11 @@
 ﻿using Godot;
 
+/// <summary>
+/// Node with some text to display to the player
+/// </summary>
 [GlobalClass]
 [Tool]
-public partial class DescriptiveNode : StoryNode
+public abstract partial class DescriptiveNode : StoryNode
 {
     [Export]
     public string BodyText;

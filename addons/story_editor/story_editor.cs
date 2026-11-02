@@ -5,6 +5,7 @@ using static Godot.EditorDock;
 
 /// <summary>
 /// Plugin for editing the text-based adventure. Used the plugin tutorial here: https://docs.godotengine.org/en/stable/tutorials/plugins/editor/making_plugins.html
+/// Designed for simple narrative with predefined options. For more complex scenarios, the graph should offload this responsibility to code implementations.
 /// </summary>
 [Tool]
 public partial class story_editor : EditorPlugin

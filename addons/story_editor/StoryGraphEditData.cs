@@ -1,6 +1,9 @@
 using Godot;
 using Godot.Collections;
 
+/// <summary>
+/// Data structure for serialisation of story graph.
+/// </summary>
 [GlobalClass]
 [Tool]
 public partial class StoryGraphEditData : Resource

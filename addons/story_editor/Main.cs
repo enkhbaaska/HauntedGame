@@ -37,16 +37,22 @@ public partial class Main : GraphEdit
         {
             Text = "Save"
         };
+        Button saveAs = new()
+        {
+            Text = "Save As..."
+        };
         Button open = new()
         {
             Text = "Open..."
         };
 
         save.Pressed += OnSavePressed;
+        saveAs.Pressed += SaveAs;
         open.Pressed += OpenFile;
 
         HBoxContainer toolbar = GetMenuHBox();
         toolbar.AddChild(save);
+        toolbar.AddChild(saveAs);
         toolbar.AddChild(open);
     }
 
