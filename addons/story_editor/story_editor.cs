@@ -9,7 +9,7 @@ using static Godot.EditorDock;
 [Tool]
 public partial class story_editor : EditorPlugin
 {
-	GraphEdit editor;
+    GraphEdit editor;
     EditorDock _dock;
 
     public override void _EnterTree()
