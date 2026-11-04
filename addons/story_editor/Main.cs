@@ -16,7 +16,8 @@ public partial class Main : GraphEdit
 
     string loadedFilePath;
 
-    public readonly static Shortcut AddNodeShortcut = SetUpShortcut();
+    public readonly static Shortcut AddNodeShortcut = SetUpAddNodeShortcut();
+    public readonly static Shortcut SaveShortcut = SetUpSaveShortcut();
 
     public override void _Ready()
     {
@@ -254,7 +255,7 @@ public partial class Main : GraphEdit
         }
     }
 
-    static Shortcut SetUpShortcut()
+    static Shortcut SetUpAddNodeShortcut()
     {
         InputEventKey keyEvent = new()
         {
@@ -276,12 +277,33 @@ public partial class Main : GraphEdit
         return shortcut;
     }
 
+    static Shortcut SetUpSaveShortcut()
+    {
+        InputEventKey keyEvent = new()
+        {
+            Keycode = Key.S,
+            CtrlPressed = true,
+            CommandOrControlAutoremap = true, // Swaps Ctrl for Command on Mac.
+        };
+
+        Shortcut shortcut = new()
+        {
+            Events = [keyEvent]
+        };
+
+        return shortcut;
+    }
+
     public override void _GuiInput(InputEvent @event)
     {
         if (AddNodeShortcut.MatchesEvent(@event))
         {
             popupMenu.Position = DisplayServer.MouseGetPosition();
             popupMenu.Popup();
+        } 
+        else if (SaveShortcut.MatchesEvent(@event))
+        {
+            OnSavePressed();
         }
     }
 
