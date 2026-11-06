@@ -8,6 +8,7 @@ public partial class StoryTest : Node
 
     public override void _Ready()
     {
+        GD.Print("Once upon a time...");
         StoryReader.Connect("End", Callable.From(End));
         StoryReader.EmitSignal("Start");
     }

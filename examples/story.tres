@@ -1,60 +1,60 @@
 [gd_resource type="Resource" script_class="StoryGraphEditData" format=3 uid="uid://bg236yv4nbfup"]
 
-[ext_resource type="Script" uid="uid://dbfd47hs1n6eq" path="res://addons/story_editor/StoryNode.cs" id="1_1732h"]
-[ext_resource type="Script" uid="uid://c27xovhfdfg7k" path="res://addons/story_editor/CodeExitNode.cs" id="2_ura6n"]
-[ext_resource type="Script" uid="uid://c82sqmorxp6f4" path="res://addons/story_editor/Choice.cs" id="3_6wgey"]
-[ext_resource type="Script" uid="uid://camjpkthw0b74" path="res://addons/story_editor/SimpleChoice.cs" id="4_sc4gj"]
-[ext_resource type="Script" uid="uid://dabqtxsvvpv7q" path="res://addons/story_editor/CodeEnterNode.cs" id="5_f0c60"]
-[ext_resource type="Script" uid="uid://bwgxq1j2qy84o" path="res://addons/story_editor/Interstitial.cs" id="6_7endp"]
-[ext_resource type="Script" uid="uid://tmekii2qga4v" path="res://addons/story_editor/StoryGraphEditData.cs" id="7_6r1w3"]
+[ext_resource type="Script" uid="uid://dbfd47hs1n6eq" path="res://addons/story_editor/StoryNode.cs" id="1_7vl1j"]
+[ext_resource type="Script" uid="uid://c27xovhfdfg7k" path="res://addons/story_editor/CodeExitNode.cs" id="2_t4u73"]
+[ext_resource type="Script" uid="uid://c82sqmorxp6f4" path="res://addons/story_editor/Choice.cs" id="3_gopk7"]
+[ext_resource type="Script" uid="uid://camjpkthw0b74" path="res://addons/story_editor/SimpleChoice.cs" id="4_ogw21"]
+[ext_resource type="Script" uid="uid://dabqtxsvvpv7q" path="res://addons/story_editor/CodeEnterNode.cs" id="5_aqiy6"]
+[ext_resource type="Script" uid="uid://bwgxq1j2qy84o" path="res://addons/story_editor/Interstitial.cs" id="6_27d54"]
+[ext_resource type="Script" uid="uid://tmekii2qga4v" path="res://addons/story_editor/StoryGraphEditData.cs" id="7_3ak3j"]
 
-[sub_resource type="Resource" id="Resource_1732h"]
-script = ExtResource("2_ura6n")
+[sub_resource type="Resource" id="Resource_rwxnd"]
+script = ExtResource("2_t4u73")
 NextNode = &"SimpleChoice6"
 StorySignalName = "Start"
 GraphPosition = Vector2(440, 160)
 GraphName = &"CodeExit4"
 
-[sub_resource type="Resource" id="Resource_ura6n"]
-script = ExtResource("3_6wgey")
+[sub_resource type="Resource" id="Resource_u5if0"]
+script = ExtResource("3_gopk7")
 OptionText = "Open the door with the red 'X'"
 NextNode = &"Interstitial8"
 
-[sub_resource type="Resource" id="Resource_6wgey"]
-script = ExtResource("3_6wgey")
+[sub_resource type="Resource" id="Resource_6qvo6"]
+script = ExtResource("3_gopk7")
 OptionText = "Open the door with the large padlock"
 NextNode = &"Interstitial9"
 
-[sub_resource type="Resource" id="Resource_sc4gj"]
-script = ExtResource("4_sc4gj")
-Choices = Array[ExtResource("3_6wgey")]([SubResource("Resource_ura6n"), SubResource("Resource_6wgey")])
+[sub_resource type="Resource" id="Resource_pv5f1"]
+script = ExtResource("4_ogw21")
+Choices = Array[ExtResource("3_gopk7")]([SubResource("Resource_u5if0"), SubResource("Resource_6qvo6")])
 BodyText = "Ahead of you are two doors. Which do you wish to enter?	"
 GraphPosition = Vector2(700, 120)
 GraphName = &"SimpleChoice6"
 
-[sub_resource type="Resource" id="Resource_f0c60"]
-script = ExtResource("5_f0c60")
+[sub_resource type="Resource" id="Resource_ummto"]
+script = ExtResource("5_aqiy6")
 StorySignalName = "End"
 GraphPosition = Vector2(1820, 160)
 GraphName = &"CodeEnter5"
 
-[sub_resource type="Resource" id="Resource_7endp"]
-script = ExtResource("6_7endp")
+[sub_resource type="Resource" id="Resource_w7gls"]
+script = ExtResource("6_27d54")
 ContinueTextOverride = "Ponder on this"
 NextNode = &"CodeEnter5"
 BodyText = "Inside is an ordinary bathroom. However, there is one strange thing about it. It contains a disgruntled looking horse."
 GraphPosition = Vector2(1420, 140)
 GraphName = &"Interstitial7"
 
-[sub_resource type="Resource" id="Resource_6r1w3"]
-script = ExtResource("6_7endp")
+[sub_resource type="Resource" id="Resource_bc2ia"]
+script = ExtResource("6_27d54")
 NextNode = &"Interstitial7"
 BodyText = "The door opens easily, and you are suprised by what it reveals."
 GraphPosition = Vector2(1080, 100)
 GraphName = &"Interstitial8"
 
-[sub_resource type="Resource" id="Resource_p17df"]
-script = ExtResource("6_7endp")
+[sub_resource type="Resource" id="Resource_eo6gu"]
+script = ExtResource("6_27d54")
 ContinueTextOverride = "Go through the other door instead"
 NextNode = &"Interstitial7"
 BodyText = "The padlock won't budge, and you don't have anything that can remove it."
@@ -62,8 +62,8 @@ GraphPosition = Vector2(1080, 440)
 GraphName = &"Interstitial9"
 
 [resource]
-script = ExtResource("7_6r1w3")
-Story = Array[ExtResource("1_1732h")]([SubResource("Resource_1732h"), SubResource("Resource_sc4gj"), SubResource("Resource_f0c60"), SubResource("Resource_7endp"), SubResource("Resource_6r1w3"), SubResource("Resource_p17df")])
+script = ExtResource("7_3ak3j")
+Story = Array[ExtResource("1_7vl1j")]([SubResource("Resource_rwxnd"), SubResource("Resource_pv5f1"), SubResource("Resource_ummto"), SubResource("Resource_w7gls"), SubResource("Resource_bc2ia"), SubResource("Resource_eo6gu")])
 Connections = Array[Dictionary]([{
 "from_node": &"Interstitial7",
 "from_port": 0,
