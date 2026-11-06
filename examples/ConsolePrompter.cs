@@ -2,6 +2,9 @@ using Godot;
 using Godot.Collections;
 using System;
 
+/// <summary>
+/// An example of a <c>Prompter</c> that logs to the console and randomly selects player choices
+/// </summary>
 public partial class ConsolePrompter : Prompter
 {
     [Export]
