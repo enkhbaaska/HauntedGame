@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ba4tx1xanjg4s"]
+
+[ext_resource type="Script" uid="uid://cirteqjwh2q6b" path="res://StoryTest.cs" id="1_lh6tt"]
+[ext_resource type="PackedScene" uid="uid://d1i0nnewt8j13" path="res://text_adventure/StoryReader.tscn" id="2_scuy2"]
+[ext_resource type="Resource" uid="uid://bg236yv4nbfup" path="res://story.tres" id="3_vppea"]
+[ext_resource type="Script" uid="uid://od6cnmyk8ti7" path="res://text_adventure/ConsolePrompter.cs" id="4_3srbx"]
+
+[node name="StoryTest" type="Node" unique_id=259022665 node_paths=PackedStringArray("StoryReader")]
+script = ExtResource("1_lh6tt")
+StoryReader = NodePath("StoryReader")
+
+[node name="StoryReader" parent="." unique_id=805695205 node_paths=PackedStringArray("Prompter") instance=ExtResource("2_scuy2")]
+Story = ExtResource("3_vppea")
+Prompter = NodePath("../ConsolePrompter")
+
+[node name="ConsolePrompter" type="Node" parent="." unique_id=1374161026]
+script = ExtResource("4_3srbx")

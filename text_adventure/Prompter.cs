@@ -1,7 +1,7 @@
 ﻿using Godot;
 using Godot.Collections;
 
-public abstract partial class Prompter : Node2D
+public abstract partial class Prompter : Node
 {
     /// <summary>
     /// Prompt the user with some text and options to choose from. Does not return until the user has selected an option.
