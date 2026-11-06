@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d1i0nnewt8j13"]
+
+[ext_resource type="Script" uid="uid://d4gvhvhncknll" path="res://text_adventure/StoryReader.cs" id="1_nugdg"]
+
+[node name="StoryReader" type="Node" unique_id=805695205]
+script = ExtResource("1_nugdg")
