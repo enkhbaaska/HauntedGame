@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bnbht3hvu1bq7"]
+
+[ext_resource type="Script" uid="uid://obacy4b47uyl" path="res://addons/story_editor/Main.cs" id="1_rp2oc"]
+[ext_resource type="PackedScene" uid="uid://cy625k5crupqi" path="res://addons/story_editor/nodes/interstitial.tscn" id="4_csisg"]
+[ext_resource type="PackedScene" uid="uid://7qakfqqy7f6q" path="res://addons/story_editor/nodes/simple_choice.tscn" id="5_awrek"]
+[ext_resource type="PackedScene" uid="uid://6kv04734fimd" path="res://addons/story_editor/nodes/code_enter.tscn" id="6_csisg"]
+[ext_resource type="PackedScene" uid="uid://d3r13iu0orkq7" path="res://addons/story_editor/nodes/code_exit.tscn" id="7_awrek"]
+
+[node name="Main" type="GraphEdit" unique_id=840698318 node_paths=PackedStringArray("popupMenu", "fileDialogue")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+right_disconnects = true
+script = ExtResource("1_rp2oc")
+popupMenu = NodePath("PopupMenu")
+nodes = Array[PackedScene]([ExtResource("7_awrek"), ExtResource("6_csisg"), ExtResource("5_awrek"), ExtResource("4_csisg")])
+fileDialogue = NodePath("EditorFileDialog")
+
+[node name="PopupMenu" type="PopupMenu" parent="." unique_id=997686130]
+search_bar_enabled = true
+
+[node name="EditorFileDialog" type="EditorFileDialog" parent="." unique_id=1316238709]
+filters = PackedStringArray("*.tres")
+
+[connection signal="connection_request" from="." to="." method="OnConnectionRequest"]
+[connection signal="delete_nodes_request" from="." to="." method="OnDeleteRequest"]
+[connection signal="disconnection_request" from="." to="." method="OnDisconnectRequest"]

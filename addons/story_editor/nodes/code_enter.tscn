@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://6kv04734fimd"]
+
+[node name="CodeEnter" type="GraphNode" unique_id=711676343]
+offset_right = 173.0
+offset_bottom = 113.0
+title = "CodeEnter"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+
+[node name="Label" type="Label" parent="." unique_id=1377327864]
+layout_mode = 2
+text = "Source"
+
+[node name="LineEdit" type="LineEdit" parent="." unique_id=796721253]
+layout_mode = 2
+placeholder_text = "Signal name..."
