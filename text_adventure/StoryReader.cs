@@ -12,7 +12,6 @@ public partial class StoryReader : Node
     [Export]
     Prompter Prompter;
 
-    private Dictionary<string, CodeExitNode> _signalMap = [];
     private Dictionary<string, StoryNode> _nameMap = [];
 
     public override void _Ready()
@@ -23,30 +22,13 @@ public partial class StoryReader : Node
             if (node is ControlNode control)
             {
                 AddUserSignal(control.StorySignalName);
-                Connect(control.StorySignalName, Callable.From(() => ReceiveSignal(control.StorySignalName)));
 
                 if (control is CodeExitNode exit)
                 {
-                    _signalMap.Add(exit.StorySignalName, exit);
+                    Connect(exit.StorySignalName, Callable.From(() => ExecuteSequence(exit)));
                 }
             }
         }
-    }
-
-    /// <summary>
-    /// Process a story signal emitted from code. <br/>
-    /// Must not be called in parallel. This could occur if a <c>CodeExit</c> and <c>CodeEnter</c> node shared the same signal name.
-    /// </summary>
-    /// <param name="name">Name of the signal, specified by the <c>CodeExit</c> node.</param>
-    private void ReceiveSignal(string name)
-    {
-        if (!_signalMap.TryGetValue(name, out CodeExitNode start))
-        {
-            GD.PrintErr($"StoryReader did not recognise signal '{name}'");
-            return;
-        }
-
-        ExecuteSequence(start);
     }
 
     /// <summary>
