@@ -21,7 +21,7 @@ fileDialogue = NodePath("EditorFileDialog")
 [node name="PopupMenu" type="PopupMenu" parent="." unique_id=997686130]
 search_bar_enabled = true
 
-[node name="EditorFileDialog" type="EditorFileDialog" parent="." unique_id=196506178]
+[node name="EditorFileDialog" type="EditorFileDialog" parent="." unique_id=1316238709]
 filters = PackedStringArray("*.tres")
 
 [connection signal="connection_request" from="." to="." method="OnConnectionRequest"]

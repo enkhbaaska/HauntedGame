@@ -42,12 +42,12 @@ public partial class SimpleChoiceNodeLogic : GraphNode
         GetChild<LineEdit>(_firstOptionIdx + _optionCount - 1).Text = text;
     }
 
-    private void RemoveOption()
+    public void RemoveOption()
     {
         _optionCount--;
         GetChild(_firstOptionIdx + _optionCount).QueueFree();
         SetSlotEnabledRight(_firstOptionIdx + _optionCount, false);
-        if (_optionCount == 1)
+        if (_optionCount <= 1)
         {
             removeButton.Disabled = true;
         }

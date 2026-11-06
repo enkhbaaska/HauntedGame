@@ -113,6 +113,7 @@ public partial class Main : GraphEdit
                             GraphName = g.Name,
                             GraphPosition = g.PositionOffset,
                             StorySignalName = g.GetNode<LineEdit>("LineEdit").Text,
+                            NextNode = GetNextNodeAssumingOnlyOneOutboundConnection(connections, g.Name)
                         });
                         break;
                     case "Interstitial":
@@ -121,7 +122,8 @@ public partial class Main : GraphEdit
                             GraphName = g.Name,
                             GraphPosition = g.PositionOffset,
                             BodyText = g.GetNode<TextEdit>("Body").Text,
-                            ContinueTextOverride = g.GetNode<LineEdit>("LineEdit").Text
+                            ContinueTextOverride = g.GetNode<LineEdit>("LineEdit").Text,
+                            NextNode = GetNextNodeAssumingOnlyOneOutboundConnection(connections, g.Name)
                         });
                         break;
                     case "SimpleChoice":
@@ -133,13 +135,13 @@ public partial class Main : GraphEdit
                         {
                             if (connection["from_node"].AsStringName() == g.Name)
                             {
-                                optionConnections.Add(new() { 
-                                    index = connection["from_port"].AsInt32(), 
-                                    name = connection["to_node"].AsStringName() 
+                                optionConnections.Add(new() {
+                                    index = connection["from_port"].AsInt32(),
+                                    name = connection["to_node"].AsStringName()
                                 });
                             }
                         }
-                        optionConnections.Sort((a, b) => a.index.CompareTo(b));
+                        optionConnections.Sort((a, b) => a.index.CompareTo(b.index));
                         for (int i = 0; i < options.Count; i++)
                         {
                             Choice choice = new()
@@ -148,8 +150,9 @@ public partial class Main : GraphEdit
                             };
                             if (i < optionConnections.Count)
                             {
-                                choice.NextNode  = optionConnections[i].name;
+                                choice.NextNode = optionConnections[i].name;
                             }
+                            choices.Add(choice);
                         }
                         nodes.Add(new SimpleChoice()
                         {
@@ -167,6 +170,11 @@ public partial class Main : GraphEdit
         }
 
         return nodes;
+    }
+
+    private StringName GetNextNodeAssumingOnlyOneOutboundConnection(Array<Dictionary> connections, StringName name)
+    {
+        return connections.Where(d => { return d["from_node"].AsStringName() == name; }).First()["to_node"].AsStringName();
     }
 
     private void LoadNodesFromStoryNodes(Array<StoryNode> storyNodes)
@@ -188,6 +196,7 @@ public partial class Main : GraphEdit
             else if (node is SimpleChoice choices)
             {
                 graphNode = AddNode(2);
+                (graphNode as SimpleChoiceNodeLogic).RemoveOption();
                 foreach (Choice choice in choices.Choices) {
                     (graphNode as SimpleChoiceNodeLogic).AddOption(choice.OptionText);
                 }
@@ -316,6 +325,7 @@ public partial class Main : GraphEdit
     {
         GraphNode newNode = nodes[index].Instantiate<GraphNode>();
         AddChild(newNode);
+        newNode.Name += GetChildCount(); // Hack to get unique names without @ symbols
         newNode.PositionOffset = (GetLocalMousePosition() + ScrollOffset) / Zoom;
         return newNode;
     }
