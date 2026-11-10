@@ -26,7 +26,11 @@ project/assembly_name="HauntedGame"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/story_editor/plugin.cfg")
+enabled=PackedStringArray()
+
+[filesystem]
+
+import/blender/enabled=false
 
 [physics]
 
